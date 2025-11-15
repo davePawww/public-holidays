@@ -1,20 +1,4 @@
-# Setup the following:
+# TODO:
 
-- [x] Prettier
-- [x] Eslint
-  - [x] globals
-  - [x] eslint-config-prettier
-  - [x] eslint-plugin-react
-- [x] script tags for above
-- [x] tailwindcss
-- [x] prettier-plugin-tailwindcss
-- [x] shadcn
-
-_tools to choose from later_
-
-- [ ] tanstack router
-- [ ] tanstack query
-- [ ] rtk
-- [ ] rtk toolkit
-      or
-- [ ] zustand
+- [ ] Create a dropdown that will show the list of available countries
+- [ ] Show the list of public holidays associated with the selected country
