@@ -1,0 +1,32 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Calendar base -->
+  <rect x="15" y="25" width="70" height="60" rx="8" fill="url(#gradient1)" stroke="#8B5CF6" stroke-width="2"/>
+  
+  <!-- Calendar header -->
+  <rect x="15" y="25" width="70" height="18" rx="8" fill="#7C3AED"/>
+  <rect x="15" y="33" width="70" height="10" fill="#7C3AED"/>
+  
+  <!-- Binding rings -->
+  <circle cx="30" cy="20" r="4" fill="#A78BFA" stroke="#8B5CF6" stroke-width="2"/>
+  <circle cx="50" cy="20" r="4" fill="#A78BFA" stroke="#8B5CF6" stroke-width="2"/>
+  <circle cx="70" cy="20" r="4" fill="#A78BFA" stroke="#8B5CF6" stroke-width="2"/>
+  
+  <!-- Calendar grid dots -->
+  <circle cx="30" cy="55" r="3" fill="#A78BFA"/>
+  <circle cx="45" cy="55" r="3" fill="#A78BFA"/>
+  <circle cx="60" cy="55" r="3" fill="#A78BFA"/>
+  <circle cx="30" cy="70" r="3" fill="#A78BFA"/>
+  <circle cx="45" cy="70" r="3" fill="#A78BFA"/>
+  <circle cx="60" cy="70" r="3" fill="#A78BFA"/>
+  
+  <!-- Star accent (holiday symbol) -->
+  <path d="M70 65 L72 71 L78 71 L73 75 L75 81 L70 77 L65 81 L67 75 L62 71 L68 71 Z" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+  
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="gradient1" x1="15" y1="25" x2="85" y2="85">
+      <stop offset="0%" stop-color="#1F2937"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+</svg>
