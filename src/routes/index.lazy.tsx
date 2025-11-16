@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { getCountries } from "@/api/countries";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
@@ -18,7 +19,9 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function RouteComponent() {
-  const { data } = useQuery({
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+
+  const { data: countries } = useQuery({
     queryKey: ["countries"],
     queryFn: () => getCountries(),
     staleTime: 30000,
@@ -29,14 +32,17 @@ function RouteComponent() {
       <div className="container mx-auto px-4 py-12">
         <Header />
         <div className="mx-auto mb-12 max-w-md">
-          <Select>
+          <Select
+            value={selectedCountry || undefined}
+            onValueChange={setSelectedCountry}
+          >
             <SelectTrigger className="w-full border-gray-800 bg-gray-950 text-gray-100">
               <SelectValue placeholder="Select a country" />
             </SelectTrigger>
             <SelectContent className="border-gray-800 bg-gray-950">
               <SelectGroup>
                 <SelectLabel>Countries</SelectLabel>
-                {data?.map((country: Country) => (
+                {countries?.map((country: Country) => (
                   <SelectItem
                     key={country.isoCode}
                     value={country.isoCode}
