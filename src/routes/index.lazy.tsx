@@ -1,66 +1,67 @@
-import { getUsers } from "@/api/users";
-import { Button } from "@/components/ui/button";
+import { getCountries } from "@/api/countries";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
+
+import Header from "@/components/header";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export const Route = createLazyFileRoute("/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { data, isLoading } = useQuery({
-    queryKey: ["users"],
-    queryFn: () => getUsers(),
+  const { data } = useQuery({
+    queryKey: ["countries"],
+    queryFn: () => getCountries(),
     staleTime: 30000,
   });
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-      <div>
-        <h1 className="font-bold">Sample data pulled using Tanstack Query</h1>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <ul>
-            {data?.map((user: User) => (
-              <li key={user.id}>
-                {user.name} ({user.email})
-              </li>
-            ))}
-          </ul>
-        )}
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-950 to-black">
+      <div className="container mx-auto px-4 py-12">
+        <Header />
+        <div className="mx-auto mb-12 max-w-md">
+          <Select>
+            <SelectTrigger className="w-full border-gray-800 bg-gray-950 text-gray-100">
+              <SelectValue placeholder="Select a country" />
+            </SelectTrigger>
+            <SelectContent className="border-gray-800 bg-gray-950">
+              <SelectGroup>
+                <SelectLabel>Countries</SelectLabel>
+                {data?.map((country: Country) => (
+                  <SelectItem
+                    key={country.isoCode}
+                    value={country.isoCode}
+                    className="text-gray-100 focus:bg-gray-800 focus:text-gray-100"
+                  >
+                    {country.name.find((n) => n.language === "EN")?.text ||
+                      country.isoCode}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
     </div>
   );
 }
 
-type Geo = {
-  lat: number;
-  lng: number;
+type LocalizedName = {
+  language: string;
+  text: string;
 };
 
-type Address = {
-  street: string;
-  suite: string;
-  city: string;
-  zipcode: string;
-  geo: Geo;
-};
-
-type Company = {
-  name: string;
-  catchPhrase: string;
-  bs: string;
-};
-
-type User = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: Address;
-  phone: string;
-  website: string;
-  company: Company;
+type Country = {
+  isoCode: string;
+  name: LocalizedName[];
+  officialLanguanges: string[];
 };
