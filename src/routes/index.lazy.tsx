@@ -3,6 +3,7 @@ import { getCountries } from "@/api/countries";
 import { getPublicHolidays } from "@/api/publicHolidays";
 import { useQuery } from "@tanstack/react-query";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import * as motion from "motion/react-client";
 
 import Header from "@/components/header";
 import {
@@ -79,26 +80,34 @@ function RouteComponent() {
           {publicHolidays?.map((holiday: PublicHolidays) => {
             const { id, name, startDate } = holiday;
             return (
-              <Card
+              <motion.div
                 key={id}
-                className="border-gray-800 bg-gray-950/95 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.5,
+                  ease: [0, 0.71, 0.2, 1.01],
+                }}
               >
-                <CardHeader>
-                  <div className="flex items-start gap-3">
-                    <div className="mt-1 rounded-lg bg-gray-900 p-2">
-                      <CalendarDays className="h-5 w-5 text-purple-500" />
+                <Card className="border-gray-800 bg-gray-950/95 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30">
+                  <CardHeader>
+                    <div className="flex items-start gap-3">
+                      <div className="mt-1 rounded-lg bg-gray-900 p-2">
+                        <CalendarDays className="h-5 w-5 text-purple-500" />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-gray-100">
+                          {name.find((n) => n.language === "EN")?.text}
+                        </CardTitle>
+                        <CardDescription className="mt-1 text-purple-400">
+                          {startDate}
+                        </CardDescription>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <CardTitle className="text-gray-100">
-                        {name.find((n) => n.language === "EN")?.text}
-                      </CardTitle>
-                      <CardDescription className="mt-1 text-purple-400">
-                        {startDate}
-                      </CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-              </Card>
+                  </CardHeader>
+                </Card>
+              </motion.div>
             );
           })}
         </div>
